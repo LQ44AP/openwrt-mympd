@@ -75,9 +75,8 @@ CMAKE_OPTIONS += \
 define Package/mympd/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/mympd $(1)/usr/bin/
-    $(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/mympd-config $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/mympd-config $(1)/usr/bin/
 	$(if $(CONFIG_MYMPD_LUA),$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/mympd-script $(1)/usr/bin/)
-
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_CONF) ./files/mympd.config $(1)/etc/config/mympd
 	$(INSTALL_DIR) $(1)/etc/init.d
