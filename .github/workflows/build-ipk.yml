@@ -64,6 +64,8 @@ jobs:
 
           cd openwrt-sdk
 
+          sed -i 's/^[ ]\{4,8\}/\t/g' package/mympd/Makefile
+
           ./scripts/feeds update -a || true
           ./scripts/feeds install libflac libid3tag liblua5.3 libopenssl libpcre2
           
