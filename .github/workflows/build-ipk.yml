@@ -58,8 +58,9 @@ jobs:
 
       - name: Compile Package
         run: |
+          git clone https://github.com/jcorporation/myMPD.git
           mkdir -p openwrt-sdk/package/mympd
-          cp -r Makefile files openwrt-sdk/package/mympd/
+          cp -r myMPD/contrib/packaging/openwrt/* openwrt-sdk/package/mympd/
 
           cd openwrt-sdk
 
