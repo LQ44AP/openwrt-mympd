@@ -67,7 +67,7 @@ jobs:
           sed -i 's/^[ ]\{4,8\}/\t/g' package/mympd/Makefile
 
           ./scripts/feeds update -a || true
-          ./scripts/feeds install libflac libid3tag liblua5.3 libopenssl libpcre2
+          ./scripts/feeds install zlib libflac libid3tag liblua5.3 libopenssl libpcre2
           
           make defconfig
           # 选定该包并执行编译
