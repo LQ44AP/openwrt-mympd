@@ -39,7 +39,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential libncurses5-dev gawk git gettext libssl-dev xsltproc wget unzip qemu-utils
+          sudo apt-get install -y build-essential libncurses5-dev gawk git gettext libssl-dev xsltproc zstd wget unzip qemu-utils
 
       - name: Download and Setup SDK
         run: |
@@ -51,7 +51,7 @@ jobs:
           wget -q "${SDK_URL}${SDK_FILE}"
           
           echo "正在解压: $SDK_FILE"
-          tar -xJf *.tar.xz
+          tar -I zstd -xf "$SDK_FILE" || tar -xJf "$SDK_FILE"
           
           SDK_DIR=$(find . -maxdepth 1 -type d -name "openwrt-sdk-*" | head -n 1)
           mv "$SDK_DIR" openwrt-sdk
@@ -76,9 +76,9 @@ jobs:
       - name: Organize Artifacts
         run: |
           mkdir -p ./deploy
-          # 直接复制原始 ipk 文件，保留版本号和架构信息
+          # 直接复制原始 apk 文件，保留版本号和架构信息
           find openwrt-sdk/bin/packages/${{ matrix.arch }}/ -name "mympd*.apk" -exec cp {} ./deploy/ \;
-          # 如果没有任何 ipk 生成，则报错
+          # 如果没有任何 apk 生成，则报错
           if [ -z "$(ls -A ./deploy)" ]; then
             echo "::error::No ipk files were produced!"
             exit 1
